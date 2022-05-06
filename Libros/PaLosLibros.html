@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    function a() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        pintarTabla(xhttp.responseXML);
+    }
+  }
+  xhttp.open("GET", "libros.xml");
+  xhttp.send();
+}
+function pintarTabla(xml){
+    //suponemos que cada libro tiene solo una utor y solo un titulo
+    let autores=xml.getElementsByTagName("autor");
+    let titulos=xml.getElementsByTagName("nombre");
+    let tabla=document.createElement("table");
+    for(i=0;i<autores.length;i++){
+        let objFila=document.createElement("tr");
+        let objAutor=document.createElement("td");
+        let objTitulo=document.createElement("td");
+        let nombre_autor=autores[i].childNodes[0].nodeValue;//Como solo tiene un hijo, se coje su posicion 0 
+        let nombre_titulo=titulos[i].childNodes[0].nodeValue;
+        objAutor.innerHTML=nombre_autor;
+        objTitulo.innerHTML=nombre_titulo;
+        objFila.appendChild(objAutor);
+        objFila.appendChild(objTitulo);
+        tabla.appendChild(objFila);
+    }
+    document.getElementById("d").appendChild(tabla);
+}
+    </script>
+</head>
+<body  onload="a()">
+
+<div id="d">
+  
+</div>
+
+</body>
+</html>

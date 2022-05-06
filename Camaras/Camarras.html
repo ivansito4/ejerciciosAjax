@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    function a() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        pintarTabla(xhttp.responseXML);
+    }
+  }
+  xhttp.open("GET", "camaras.xml");
+  xhttp.send();
+}
+function pintarTabla(xml){
+    let latitud=xml.getElementsByTagName("Latitud");
+    let longitud=xml.getElementsByTagName("Longitud");
+    let url=xml.getElementsByTagName("URL");
+    let tabla=document.createElement("table");
+    for(i=0;i<latitud.length;i++){
+        let objFila=document.createElement("tr");
+        let objLat=document.createElement("td");
+        let objLon=document.createElement("td");
+        let objImg=document.createElement("img");
+        let nombreLat=latitud[i].childNodes[0].nodeValue;//Como solo tiene un hijo, se coje su posicion 0 
+        let nombreLong=longitud[i].childNodes[0].nodeValue;
+        let nombreUrl=url[i].childNodes[0].nodeValue;
+        objLat.innerHTML=nombreLat;
+        objLon.innerHTML=nombreLong;
+        objImg.src="http://"+nombreUrl;
+        
+        objFila.appendChild(objLat);
+        objFila.appendChild(objLon);
+        objFila.appendChild(objImg);
+        tabla.appendChild(objFila);
+    }
+    document.getElementById("d").appendChild(tabla);
+    var lista_imagenes=document.getElementsByTagName("img");
+    for (i=0; i<lista_imagenes.length; i++)
+        {
+            lista_imagenes[i].src=lista_imagenes[i].src+"?r="+ new Date().getTime();
+            
+        }
+}
+    </script>
+</head>
+<body  onload="a()">
+
+<div id="d">
+  
+</div>
+
+</body>
+</html>

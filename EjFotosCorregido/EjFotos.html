@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotos</title>
+    <script>
+        function insertarImg(){
+            var xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                    let lista_img=xhr.responseText.split(",");
+                    console.log(lista_img);
+                    for(i=0;i<lista_img.length;i++){
+                        let img=document.createElement("img");
+                        img.src=lista_img[i];
+                        document.getElementById("tenedor").appendChild(img);
+                    }
+               
+            }
+            xhr.open("GET","fotos.txt",true);
+            xhr.send;
+            //readyState 1,2,3,4
+            //status 200,403,404
+            //responseText
+            //responseXML
+
+        }
+    </script>
+</head>
+<body onload="insertarImg()">
+    <div id="tenedor">
+
+    </div>
+</body>
+</html>

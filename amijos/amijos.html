@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    function a() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        pintarTabla(xhttp.responseXML);
+    }
+  }
+  xhttp.open("GET", "amijos.xml");
+  xhttp.send();
+}
+function pintarTabla(xml){
+    let amigo=xml.getElementsByTagName("amigo");
+    let nombres=xml.getElementsByTagName("nombre");
+    let tf=xml.getElementsByTagName("tf");
+
+    for(i=0;i<amigo.length;i++){
+        let objNom=document.createElement("p");
+        let objTlf=document.createElement("p");
+        let nombre=nombres[i].childNodes[0].nodeValue;
+        let Tlf=tf[i].childNodes[0].nodeValue;
+        objNom.innerHTML=nombre;
+        objTlf.innerHTML=Tlf;
+        console.log(objNom);
+        console.log(objTlf);
+        document.getElementById("d").appendChild(objNom);
+        document.getElementById("d").appendChild(objTlf);
+    }
+    
+}
+    </script>
+</head>
+<body  onload="a()">
+
+<div id="d">
+  
+</div>
+
+</body>
+</html>

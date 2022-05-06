@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        img{
+            width: 300px;
+        }
+    </style>
+    <script>
+    function crearselect() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var nombres=this.responseText;
+    var lista_nombres=nombres.split(",");
+    var obj_select=document.createElement("select");
+    for (i=0; i<lista_nombres.length; i++)
+        {
+        var obj_option=document.createElement("option");
+        obj_option.innerHTML=lista_nombres[i];
+        obj_option.id=lista_nombres[i];
+        obj_select.appendChild(obj_option);
+        }
+    obj_select.addEventListener("change",Cambio);
+
+    document.getElementById("d").appendChild(obj_select);
+    }
+  }
+  xhttp.open("GET", "nombresa.txt", true);
+  xhttp.send();
+}
+        function Cambio(){
+            var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    var nombres=this.responseText;
+    var lista_nombres=nombres.split("--");
+            let p=document.getElementsByTagName("img")[0];           
+            let val=document.getElementsByTagName("select")[0].value;
+
+            if(p==null){
+            let f=document.createElement("img");
+            if(val=="andrew"){
+               f.src=lista_nombres[0]
+            }
+            if(val=="tom"){
+                f.src=lista_nombres[1]
+            }
+            if(val=="tobey"){
+                f.src=lista_nombres[2]
+            }
+            if(val=="jason"){
+                f.src=lista_nombres[3]
+            }
+            document.body.appendChild(f);
+        }
+        else{
+            if(val=="andrew"){
+               p.src=lista_nombres[0]
+            }
+            if(val=="tom"){
+                p.src=lista_nombres[1]
+            }
+            if(val=="tobey"){
+                p.src=lista_nombres[2]
+            }
+            if(val=="jason"){
+                p.src=lista_nombres[3]
+            }
+         }
+  } 
+ 
+        }
+xhttp.open("GET", "imgs.txt", true);
+  xhttp.send();
+        }
+    </script>
+</head>
+<body  onload="crearselect()">
+
+<div id="d">
+  
+</div>
+
+</body>
+</html>
